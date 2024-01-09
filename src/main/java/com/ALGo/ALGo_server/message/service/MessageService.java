@@ -21,7 +21,7 @@ public class MessageService {
         StringBuilder urlBuilder = new StringBuilder("https://www.safetydata.go.kr/openApi");
 
         urlBuilder.append("/" + URLEncoder.encode("행정안전부_긴급재난문자", "UTF-8"));
-        urlBuilder.append("?serviceKey=393W32INOR803N1M");
+        urlBuilder.append("?serviceKey=" + serviceKey);
         urlBuilder.append("&returnType=json");
         urlBuilder.append("&pageNum=1");
         urlBuilder.append("&numRowsPerPage=2");
