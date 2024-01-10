@@ -1,6 +1,8 @@
 package com.ALGo.ALGo_server.message.controller;
 
+import com.ALGo.ALGo_server.message.dto.MessageResponse;
 import com.ALGo.ALGo_server.message.service.MessageService;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.web.bind.annotation.GetMapping;
         import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,14 @@ public class MessageController {
     }
 
     @GetMapping("/testMessage")
-    public void getMessage() {
-        try {
-            messageService.message();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public MessageResponse getMessage() throws IOException, ParseException {
+//        try {
+//            messageService.message();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
+        return messageService.message();
     }
 }
