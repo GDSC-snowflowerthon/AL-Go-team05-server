@@ -1,6 +1,8 @@
 package com.ALGo.ALGo_server.message.service;
 
 import com.ALGo.ALGo_server.message.dto.MessageResponse;
+import com.ALGo.ALGo_server.papago.service.NaverTransService;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,10 +22,14 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MessageService {
 
     @Value("${message-secret}")
     private String secretKey;
+
+    private final NaverTransService naverTransService;
+
     public MessageResponse message() throws IOException, ParseException {
         StringBuilder urlBuilder = new StringBuilder("https://www.safetydata.go.kr/openApi");
 
@@ -79,7 +85,8 @@ public class MessageService {
             String a = areaArr.get(i);
         }
 
-        MessageResponse response = new MessageResponse(MSG_CN, CREAT_DT, areaArr, EMRGNCY_STEP_ID, DSSTR_SE_ID);
+        String translatedMSG = naverTransService.getTransSentence(MSG_CN);
+        MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaArr, EMRGNCY_STEP_ID, DSSTR_SE_ID);
         return response;
     }
 }
