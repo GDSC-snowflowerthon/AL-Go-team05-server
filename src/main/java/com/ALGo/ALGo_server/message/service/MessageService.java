@@ -42,7 +42,7 @@ public class MessageService {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-//        System.out.println("Response code: " + conn.getResponseCode());
+        System.out.println("Response code: " + conn.getResponseCode());
 
 
         BufferedReader rd;
@@ -62,7 +62,7 @@ public class MessageService {
         // HTTP 연결 닫기
         conn.disconnect();
         String responseBody = sb.toString();
-//        System.out.println(responseBody);
+        System.out.println(responseBody);
 
         //파싱
         JSONParser jsonParser = new JSONParser();
@@ -75,17 +75,25 @@ public class MessageService {
 
         String CREAT_DT = dataObject.get("CREAT_DT").toString();
         String DSSTR_SE_ID = dataObject.get("DSSTR_SE_ID").toString();
+        String DSSTR_SE_NM = dataObject.get("DSSTR_SE_NM").toString();
         String EMRGNCY_STEP_ID = dataObject.get("EMRGNCY_STEP_ID").toString();
         String MSG_CN = dataObject.get("MSG_CN").toString();
         String RCV_AREA_ID = dataObject.get("RCV_AREA_ID").toString();
+        String RCV_AREA_NM = dataObject.get("RCV_AREA_NM").toString();
 
-        List<String> areaArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
-        for(int i=0;i<areaArr.size();i++){
-            String a = areaArr.get(i);
+        List<String> areaIdArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
+        for(int i=0;i<areaIdArr.size();i++){
+            String a = areaIdArr.get(i);
         }
 
+        List<String> areaNmArr = Arrays.stream(RCV_AREA_NM.split(",")).toList();
+        for(int i=0;i<areaNmArr.size();i++){
+            String a = areaNmArr.get(i);
+        }
+
+
         String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
-        MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaArr, EMRGNCY_STEP_ID, DSSTR_SE_ID);
+        MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
         return response;
     }
 }
