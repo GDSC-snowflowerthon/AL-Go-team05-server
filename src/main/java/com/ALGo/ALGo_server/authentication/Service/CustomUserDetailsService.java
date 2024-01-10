@@ -1,11 +1,14 @@
 package com.ALGo.ALGo_server.authentication.Service;
 
+import com.ALGo.ALGo_server.entity.User;
 import com.ALGo.ALGo_server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service

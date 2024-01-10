@@ -24,6 +24,8 @@ public class JoinRequestDto {
         return User.builder()
                 .email(email)
                 .password(password)
+                .language(language)
+                .area(area)
                 .role(Role.ROLE_USER)
                 .build();
     }
