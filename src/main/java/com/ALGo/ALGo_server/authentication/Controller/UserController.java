@@ -4,7 +4,6 @@ import com.ALGo.ALGo_server.authentication.Dto.JoinRequestDto;
 import com.ALGo.ALGo_server.authentication.Dto.LoginRequestDto;
 import com.ALGo.ALGo_server.authentication.Jwt.JwtTokenProvider;
 import com.ALGo.ALGo_server.authentication.Service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.OK)
