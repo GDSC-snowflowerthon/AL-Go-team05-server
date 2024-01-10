@@ -1,4 +1,4 @@
-package com.ALGo.ALGo_server.papago.service;
+package com.ALGo.ALGo_server.papago.Service;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

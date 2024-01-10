@@ -1,7 +1,7 @@
 package com.ALGo.ALGo_server.message.service;
 
 import com.ALGo.ALGo_server.message.dto.MessageResponse;
-import com.ALGo.ALGo_server.papago.service.NaverTransService;
+import com.ALGo.ALGo_server.papago.Service.NaverTransService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
