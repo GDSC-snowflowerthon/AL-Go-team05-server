@@ -25,6 +25,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String refreshToken;
+    private String area;
+    private String language;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,12 +39,6 @@ public class User implements UserDetails {
         this.refreshToken = refreshToken;
     }
 
-    @Builder
-    private User(String email, String password, Role role){
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
     //UserDetail implement한 내용
     @Override
@@ -52,6 +48,14 @@ public class User implements UserDetails {
         return auth;
     }
 
+    @Builder
+    public User(String email, String password, String area, String language, Role role){
+        this.email = email;
+        this.password = password;
+        this.area = area;
+        this.language = language;
+        this.role = role;
+    }
     @Override
     public String getUsername() {
         return null;

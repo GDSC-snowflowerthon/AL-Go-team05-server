@@ -20,8 +20,8 @@ import java.util.Date;
 public class JwtTokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "BEARER";
-    private final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60L * 60L; //만료 1시간
-    private final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60L * 60L * 24L * 7L; //만료 7일
+    private final Long ACCESS_TOKEN_EXPIRE_TIME = 10000L * 60 * 60;
+    private final Long REFRESH_TOKEN_EXPIRE_TIME = 10000L * 60 * 60 * 24 * 7;
 
     private final CustomUserDetailsService customUserDetailsService;
 
