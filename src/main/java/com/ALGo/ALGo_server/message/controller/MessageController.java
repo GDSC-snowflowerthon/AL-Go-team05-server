@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
         import java.io.IOException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/disaster")
 public class MessageController {
 
     private final MessageService messageService;
@@ -21,7 +21,7 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @GetMapping("/testMessage")
+    @GetMapping("/message")
     public MessageResponse getMessage() throws IOException, ParseException {
 //        try {
 //            messageService.message();
