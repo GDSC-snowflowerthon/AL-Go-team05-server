@@ -31,25 +31,23 @@ public class MessageService {
         conn.setRequestProperty("Content-type", "application/json");
         System.out.println("Response code: " + conn.getResponseCode());
 
-        // API 응답을 읽어오기 위한 InputStream 초기화
-        InputStream inputStream;
-        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            inputStream = conn.getInputStream();
+
+        BufferedReader rd;
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         } else {
-            inputStream = conn.getErrorStream();
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
         }
 
-        // API 응답을 문자열로 변환하여 출력
-        try (BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = rd.readLine()) != null) {
-                sb.append(line);
-            }
-            System.out.println(sb.toString());
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while((line = rd.readLine()) != null) {
+            sb.append(line);
         }
+        rd.close();
 
         // HTTP 연결 닫기
         conn.disconnect();
+        System.out.println(sb.toString());
     }
 }
