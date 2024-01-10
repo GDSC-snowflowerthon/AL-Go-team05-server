@@ -39,7 +39,7 @@ public class SecurityConfig {
        http
                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                .authorizeRequests()
-//               .requestMatchers("/disaster/**").authenticated()
+               .requestMatchers("/disaster/**").authenticated()
                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() //prefilght request 허용
                .anyRequest().permitAll();
 
