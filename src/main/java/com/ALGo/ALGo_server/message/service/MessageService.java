@@ -1,5 +1,6 @@
 package com.ALGo.ALGo_server.message.service;
 
+import com.ALGo.ALGo_server.entity.User;
 import com.ALGo.ALGo_server.message.dto.MessageResponse;
 import com.ALGo.ALGo_server.papago.Service.NaverTransService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class MessageService {
 
     private final NaverTransService naverTransService;
 
-    public MessageResponse message() throws IOException, ParseException {
+    public MessageResponse message(User user) throws IOException, ParseException {
         StringBuilder urlBuilder = new StringBuilder("https://www.safetydata.go.kr/openApi");
 
         urlBuilder.append("/" + URLEncoder.encode("행정안전부_긴급재난문자","UTF-8"));
@@ -83,7 +84,7 @@ public class MessageService {
             String a = areaArr.get(i);
         }
 
-        String translatedMSG = naverTransService.getTransSentence(MSG_CN);
+        String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
         MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaArr, EMRGNCY_STEP_ID, DSSTR_SE_ID);
         return response;
     }
