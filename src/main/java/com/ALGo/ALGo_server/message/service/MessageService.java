@@ -93,7 +93,7 @@ public class MessageService {
 
 
         String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
-        MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
+        MessageResponse response = new MessageResponse(MSG_CN, translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
         return response;
     }
 }
