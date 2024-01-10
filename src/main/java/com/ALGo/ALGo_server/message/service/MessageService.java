@@ -42,7 +42,7 @@ public class MessageService {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+//        System.out.println("Response code: " + conn.getResponseCode());
 
 
         BufferedReader rd;
@@ -62,7 +62,7 @@ public class MessageService {
         // HTTP 연결 닫기
         conn.disconnect();
         String responseBody = sb.toString();
-        System.out.println(responseBody);
+//        System.out.println(responseBody);
 
         //파싱
         JSONParser jsonParser = new JSONParser();
