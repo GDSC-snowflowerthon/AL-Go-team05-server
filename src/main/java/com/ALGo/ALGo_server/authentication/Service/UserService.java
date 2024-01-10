@@ -44,7 +44,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 비밀번호입니다");
         }
 
-        String accessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
+        String accessToken = jwtTokenProvider.createAccessToken(user.getUsername(), user.getRole().name()); //여기가 문제인가?
         String refreshToken = jwtTokenProvider.createRefreshToken();
 
         user.updateRefreshToken(refreshToken); //refresh token 저장
