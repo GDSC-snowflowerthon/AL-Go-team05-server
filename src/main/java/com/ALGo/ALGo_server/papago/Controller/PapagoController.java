@@ -1,6 +1,6 @@
-package com.ALGo.ALGo_server.papago.controller;
+package com.ALGo.ALGo_server.papago.Controller;
 
-import com.ALGo.ALGo_server.papago.service.NaverTransService;
+import com.ALGo.ALGo_server.papago.Service.NaverTransService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.PostMapping;
