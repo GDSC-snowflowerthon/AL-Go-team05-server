@@ -47,7 +47,15 @@ public class UserService {
         String accessToken = jwtTokenProvider.createAccessToken(user.getUsername(), user.getRole().name());
         String refreshToken = jwtTokenProvider.createRefreshToken();
 
-        user.updateRefreshToken(refreshToken);
+        user.updateRefreshToken(refreshToken); //refresh token 저장
+        userRepository.save(user);
+
+        return TokenResponseDto.builder()
+                .grantType("Bearer")
+                .jwtAccessToken(accessToken)
+                .jwtRefreshToken(refreshToken)
+                .build();
+
     }
 
     public TokenResponseDto issueAccessToken(HttpServletRequest request){
