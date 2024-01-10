@@ -1,5 +1,6 @@
-package com.ALGo.ALGo_server.papago.service;
+package com.ALGo.ALGo_server.papago.Service;
 
+import com.ALGo.ALGo_server.entity.User;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,7 +23,7 @@ public class NaverTransService {
     @Value("${papago-client-secret}")
     private String clientSecret; //papago 애플리케이션 클라이언트 시크릿값;
 
-    public String getTransSentence(String s) throws ParseException {
+    public String getTransSentence(String s, User user) throws ParseException {
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
         String text;
 
@@ -37,26 +38,26 @@ public class NaverTransService {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
-        String responseBody = post(apiURL, requestHeaders, text);
-        System.out.println("responseBody = " + responseBody);
+        String responseBody = post(apiURL, requestHeaders, text, user);
+//        System.out.println("responseBody = " + responseBody);
 
         //응답 파싱하기
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody);
 
         JSONObject messageObj = (JSONObject) jsonObject.get("message");
-        System.out.println("messageObj = " + messageObj);
+//        System.out.println("messageObj = " + messageObj);
         JSONObject resultObj = (JSONObject) messageObj.get("result");
-        System.out.println("resultObj = " + resultObj);
+//        System.out.println("resultObj = " + resultObj);
         String transText = resultObj.get("translatedText").toString();
 
         return transText;
 
     }
 
-    private String post(String apiUrl, Map<String, String> requestHeaders, String text){
+    private String post(String apiUrl, Map<String, String> requestHeaders, String text, User user){
         HttpURLConnection con = connect(apiUrl);
-        String postParams = "source=ko&target=en&text=" + text; //나중에 목적 언어는 사용자 데이터로 바꾸기!! ko(원본언어) -> 목적언어
+        String postParams = "source=ko&target="+user.getLanguage()+"&text=" + text; //나중에 목적 언어는 사용자 데이터로 바꾸기!! ko(원본언어) -> 목적언어
 
         try {
             con.setRequestMethod("POST");
