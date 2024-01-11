@@ -15,9 +15,9 @@ public class MessageResponse {
     private String DSSTR_SE_ID;  //재해구분 id
     private String DSSTR_SE_NM; //재해구분 명
 
-    public MessageResponse(String MSG_CN, String trans_MSG_CN, String CREAT_DT, List<String> RCV_AREA_ID, List<String> RCV_AREA_NM, String EMRGNCY_STEP_ID, String DSSTR_SE_ID, String DSSTR_SE_NM){
+    public MessageResponse(String MSG_CN, String CREAT_DT, List<String> RCV_AREA_ID, List<String> RCV_AREA_NM, String EMRGNCY_STEP_ID, String DSSTR_SE_ID, String DSSTR_SE_NM){
         this.MSG_CN = MSG_CN;
-        this.trans_MSG_CN = trans_MSG_CN;
+        //this.trans_MSG_CN = trans_MSG_CN;
         this.CREAT_DT = CREAT_DT;
         this.RCV_AREA_ID = RCV_AREA_ID;
         this.RCV_AREA_NM = RCV_AREA_NM;
