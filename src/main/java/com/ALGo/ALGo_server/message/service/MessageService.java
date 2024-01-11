@@ -95,8 +95,8 @@ public class MessageService {
                 String a = areaNmArr.get(j);
             }
 
-            String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
-            MessageResponse response = new MessageResponse(MSG_CN, translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
+            //String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
+            MessageResponse response = new MessageResponse(MSG_CN, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
 
             msgResArr.add(response);
         }
@@ -107,7 +107,6 @@ public class MessageService {
         String combinedCity = city + gu;
 
         MessageResponse result = null;
-
         // 지역 찾기
         for (int i=0; i<msgResArr.size(); i++) {
 
@@ -128,6 +127,15 @@ public class MessageService {
             }
 
         }
+
+        //String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
+
+        if(result != null){
+            String MSG_CN = result.getMSG_CN();
+            String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
+            result.setTrans_MSG_CN(translatedMSG);
+        }
+
         return result;
 
     }
