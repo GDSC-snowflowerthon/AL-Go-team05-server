@@ -25,7 +25,7 @@ public class MessageController {
     }
 
     @GetMapping("/message")
-    public List<MessageResponse> getMessage(@AuthenticationPrincipal User user) throws IOException, ParseException {
+    public MessageResponse getMessage(@AuthenticationPrincipal User user) throws IOException, ParseException {
 
         return messageService.message(user);
     }
