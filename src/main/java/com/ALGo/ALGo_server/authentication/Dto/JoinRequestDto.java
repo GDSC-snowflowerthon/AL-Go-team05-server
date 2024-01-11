@@ -16,7 +16,8 @@ public class JoinRequestDto {
     private String email;
     private String password;
     private String language;
-    private String area;
+    private String city;
+    private String gu;
     private Role role;
 
     @Builder
@@ -25,7 +26,8 @@ public class JoinRequestDto {
                 .email(email)
                 .password(password)
                 .language(language)
-                .area(area)
+                .city(city)
+                .gu(gu)
                 .role(Role.ROLE_USER)
                 .build();
     }
