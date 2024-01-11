@@ -25,7 +25,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String refreshToken;
-    private String area;
+    private String city;
+    private String gu;
     private String language;
 
     @Enumerated(EnumType.STRING)
@@ -49,10 +50,11 @@ public class User implements UserDetails {
     }
 
     @Builder
-    public User(String email, String password, String area, String language, Role role){
+    public User(String email, String password, String city, String gu, String language, Role role){
         this.email = email;
         this.password = password;
-        this.area = area;
+        this.city = city;
+        this.gu = gu;
         this.language = language;
         this.role = role;
     }

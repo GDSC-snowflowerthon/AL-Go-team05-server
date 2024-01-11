@@ -17,6 +17,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
-            cd /home/ec2-user/apps/step1
+            cd /home/ec2-user/app/step1
             sh deploy.sh
-            nohup java -jar wow_server-0.0.1-SNAPSHOT.jar > nohup.out 2> nohup.err < /dev/null &
+            nohup java -jar AL-Go_server-0.0.1-SNAPSHOT.jar > nohup.out 2> nohup.err < /dev/null &
