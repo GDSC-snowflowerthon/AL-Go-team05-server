@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,14 +30,14 @@ public class MessageService {
 
     private final NaverTransService naverTransService;
 
-    public MessageResponse message(User user) throws IOException, ParseException {
+    public List<MessageResponse> message(User user) throws IOException, ParseException {
         StringBuilder urlBuilder = new StringBuilder("https://www.safetydata.go.kr/openApi");
 
         urlBuilder.append("/" + URLEncoder.encode("행정안전부_긴급재난문자","UTF-8"));
         urlBuilder.append("?serviceKey=" + secretKey);
         urlBuilder.append("&returnType=json");
         urlBuilder.append("&pageNum=1");
-        urlBuilder.append("&numRowsPerPage=1");
+        urlBuilder.append("&numRowsPerPage=4");
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -69,23 +70,64 @@ public class MessageService {
         JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody);
 
         JSONObject responseData = (JSONObject) jsonObject.get("responseData");
-        JSONArray data = (JSONArray) responseData.get("data");
+        JSONArray dataArr = (JSONArray) responseData.get("data");
 
-        JSONObject dataObject = (JSONObject) data.get(0);
+        List<MessageResponse> msgResArr = new ArrayList<>();
+
+        for(int i=0; i<dataArr.size(); i++){
+            JSONObject dataObject = (JSONObject) dataArr.get(i);
+
+            String CREAT_DT = dataObject.get("CREAT_DT").toString();
+            String DSSTR_SE_ID = dataObject.get("DSSTR_SE_ID").toString();
+            String DSSTR_SE_NM = dataObject.get("DSSTR_SE_NM").toString();
+            String EMRGNCY_STEP_ID = dataObject.get("EMRGNCY_STEP_ID").toString();
+            String MSG_CN = dataObject.get("MSG_CN").toString();
+            String RCV_AREA_ID = dataObject.get("RCV_AREA_ID").toString();
+            String RCV_AREA_NM = dataObject.get("RCV_AREA_NM").toString();
+
+            List<String> areaIdArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
+            for(int j=0;j<areaIdArr.size();j++){
+                String a = areaIdArr.get(j);
+            }
+
+            List<String> areaNmArr = Arrays.stream(RCV_AREA_NM.split(",")).toList();
+            for(int j=0;j<areaNmArr.size();j++){
+                String a = areaNmArr.get(j);
+            }
+
+            String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
+            MessageResponse response = new MessageResponse(MSG_CN, translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
+
+            msgResArr.add(response);
+        }
+
+        return msgResArr;
+
+        /*
+        JSONObject dataObject = (JSONObject) dataArr.get(0);
 
         String CREAT_DT = dataObject.get("CREAT_DT").toString();
         String DSSTR_SE_ID = dataObject.get("DSSTR_SE_ID").toString();
+        String DSSTR_SE_NM = dataObject.get("DSSTR_SE_NM").toString();
         String EMRGNCY_STEP_ID = dataObject.get("EMRGNCY_STEP_ID").toString();
         String MSG_CN = dataObject.get("MSG_CN").toString();
         String RCV_AREA_ID = dataObject.get("RCV_AREA_ID").toString();
+        String RCV_AREA_NM = dataObject.get("RCV_AREA_NM").toString();
 
-        List<String> areaArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
-        for(int i=0;i<areaArr.size();i++){
-            String a = areaArr.get(i);
+        List<String> areaIdArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
+        for(int i=0;i<areaIdArr.size();i++){
+            String a = areaIdArr.get(i);
         }
 
+        List<String> areaNmArr = Arrays.stream(RCV_AREA_NM.split(",")).toList();
+        for(int i=0;i<areaNmArr.size();i++){
+            String a = areaNmArr.get(i);
+        }
+
+
         String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
-        MessageResponse response = new MessageResponse(translatedMSG, CREAT_DT, areaArr, EMRGNCY_STEP_ID, DSSTR_SE_ID);
-        return response;
+        MessageResponse response = new MessageResponse(MSG_CN, translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
+
+         */
     }
 }

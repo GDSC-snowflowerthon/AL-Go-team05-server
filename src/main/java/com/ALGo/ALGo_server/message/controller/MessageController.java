@@ -7,10 +7,11 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-        import java.io.IOException;
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/disaster")
@@ -24,14 +25,8 @@ public class MessageController {
     }
 
     @GetMapping("/message")
-    public MessageResponse getMessage(@AuthenticationPrincipal User user) throws IOException, ParseException {
-//        try {
-//            messageService.message();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
+    public List<MessageResponse> getMessage(@AuthenticationPrincipal User user) throws IOException, ParseException {
+
         return messageService.message(user);
     }
 }
