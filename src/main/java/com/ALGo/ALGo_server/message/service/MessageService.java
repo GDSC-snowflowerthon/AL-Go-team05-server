@@ -30,14 +30,14 @@ public class MessageService {
 
     private final NaverTransService naverTransService;
 
-    public List<MessageResponse> message(User user) throws IOException, ParseException {
+    public MessageResponse message(User user) throws IOException, ParseException {
         StringBuilder urlBuilder = new StringBuilder("https://www.safetydata.go.kr/openApi");
 
         urlBuilder.append("/" + URLEncoder.encode("행정안전부_긴급재난문자","UTF-8"));
         urlBuilder.append("?serviceKey=" + secretKey);
         urlBuilder.append("&returnType=json");
         urlBuilder.append("&pageNum=1");
-        urlBuilder.append("&numRowsPerPage=4");
+        urlBuilder.append("&numRowsPerPage=10");
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -101,33 +101,34 @@ public class MessageService {
             msgResArr.add(response);
         }
 
-        return msgResArr;
+        //user 지역
+        String city = user.getCity() + " ";
+        String gu = user.getGu() + " ";
+        String combinedCity = city + gu;
 
-        /*
-        JSONObject dataObject = (JSONObject) dataArr.get(0);
+        MessageResponse result = null;
 
-        String CREAT_DT = dataObject.get("CREAT_DT").toString();
-        String DSSTR_SE_ID = dataObject.get("DSSTR_SE_ID").toString();
-        String DSSTR_SE_NM = dataObject.get("DSSTR_SE_NM").toString();
-        String EMRGNCY_STEP_ID = dataObject.get("EMRGNCY_STEP_ID").toString();
-        String MSG_CN = dataObject.get("MSG_CN").toString();
-        String RCV_AREA_ID = dataObject.get("RCV_AREA_ID").toString();
-        String RCV_AREA_NM = dataObject.get("RCV_AREA_NM").toString();
+        // 지역 찾기
+        for (int i=0; i<msgResArr.size(); i++) {
 
-        List<String> areaIdArr = Arrays.stream(RCV_AREA_ID.split(",")).toList();
-        for(int i=0;i<areaIdArr.size();i++){
-            String a = areaIdArr.get(i);
+            //해당문자 지역이름 리스트 가져오기
+            List<String> msgAreaNMArr = msgResArr.get(i).getRCV_AREA_NM();
+
+            //지역 포함하는 애 찾기
+            for(int j=0; j<msgAreaNMArr.size(); j++) {
+                if (msgAreaNMArr.get(j).equals(city) || msgAreaNMArr.get(j).equals(combinedCity)) {
+                    result = msgResArr.get(i);
+                    break;
+                }
+            }
+
+            // 데이터 담겨 있으면 중단하기
+            if(result != null) {
+                break;
+            }
+
         }
+        return result;
 
-        List<String> areaNmArr = Arrays.stream(RCV_AREA_NM.split(",")).toList();
-        for(int i=0;i<areaNmArr.size();i++){
-            String a = areaNmArr.get(i);
-        }
-
-
-        String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
-        MessageResponse response = new MessageResponse(MSG_CN, translatedMSG, CREAT_DT, areaIdArr, areaNmArr, EMRGNCY_STEP_ID, DSSTR_SE_ID, DSSTR_SE_NM);
-
-         */
     }
 }
