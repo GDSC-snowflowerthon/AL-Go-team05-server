@@ -1,5 +1,6 @@
 package com.ALGo.ALGo_server.entity;
 
+import com.ALGo.ALGo_server.mypage.Dto.ChangeInfoRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,13 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public void updateInfo(ChangeInfoRequestDto requestDto){
+        this.language = requestDto.getLanguage();
+        this.city = requestDto.getCity();
+        this.gu = requestDto.getGu();
+    }
+
 
     public void encodePassword(PasswordEncoder passwordEncoder){
         this.password = passwordEncoder.encode(password);
