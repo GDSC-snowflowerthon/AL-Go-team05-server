@@ -37,7 +37,7 @@ public class MessageService {
         urlBuilder.append("?serviceKey=" + secretKey);
         urlBuilder.append("&returnType=json");
         urlBuilder.append("&pageNum=1");
-        urlBuilder.append("&numRowsPerPage=20");
+        urlBuilder.append("&numRowsPerPage=100");
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
