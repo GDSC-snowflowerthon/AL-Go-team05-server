@@ -52,6 +52,7 @@ public class UserService {
 
         return TokenResponseDto.builder()
                 .grantType("Bearer")
+                .language(user.getLanguage())
                 .jwtAccessToken(accessToken)
                 .jwtRefreshToken(refreshToken)
                 .build();
