@@ -45,6 +45,7 @@ public class NaverTransService {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody);
 
+        System.out.println("jsonObject = " + jsonObject);
         JSONObject messageObj = (JSONObject) jsonObject.get("message");
         System.out.println("messageObj = " + messageObj);
         JSONObject resultObj = (JSONObject) messageObj.get("result");
