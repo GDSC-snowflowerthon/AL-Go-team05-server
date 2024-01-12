@@ -46,9 +46,9 @@ public class NaverTransService {
         JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody);
 
         JSONObject messageObj = (JSONObject) jsonObject.get("message");
-//        System.out.println("messageObj = " + messageObj);
+        System.out.println("messageObj = " + messageObj);
         JSONObject resultObj = (JSONObject) messageObj.get("result");
-//        System.out.println("resultObj = " + resultObj);
+        System.out.println("resultObj = " + resultObj);
         String transText = resultObj.get("translatedText").toString();
 
         return transText;
