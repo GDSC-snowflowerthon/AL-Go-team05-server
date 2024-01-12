@@ -132,8 +132,26 @@ public class MessageService {
 
         if(result != null){
             String MSG_CN = result.getMSG_CN();
+            String DSSTR = result.getDSSTR_SE_NM();
+
+            List<String> areaArr = result.getRCV_AREA_NM();
+            //문자 발송 지역 리스트 중 사용자
+            String AREA = "";
+            for (int i = 0; i < areaArr.size(); i++) {
+                if (combinedCity.equals(areaArr.get(i)) || city.equals(areaArr.get(i))) {
+                    AREA = areaArr.get(i);
+                    break;
+                }
+            }
+
             String translatedMSG = naverTransService.getTransSentence(MSG_CN, user);
+            String translateDSSTR = naverTransService.getTransSentence(DSSTR, user);
+            String translateAREA = naverTransService.getTransSentence(AREA, user);
+
             result.setTrans_MSG_CN(translatedMSG);
+            result.setTrnas_DSSTR(translateDSSTR);
+            result.setTrans_AREA(translateAREA);
+
         }
 
         return result;
