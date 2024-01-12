@@ -19,4 +19,7 @@ public class Quiz {
     @Column(nullable = false)
     private boolean answer;
 
+    @Column(nullable = false)
+    private String description;
+
 }
