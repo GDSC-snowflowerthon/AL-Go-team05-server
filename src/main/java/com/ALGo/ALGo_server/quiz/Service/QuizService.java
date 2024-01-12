@@ -22,7 +22,7 @@ public class QuizService {
 
         Set<QuizDto> quizDtoList = new HashSet<>();
         while (quizDtoList.size() < 4){
-            Long randomNum = Long.valueOf(random.nextInt(16) + 1);
+            Long randomNum = Long.valueOf(random.nextInt(20) + 1);
             Quiz q = quizRepository.findById(randomNum).get();
             QuizDto quizDto = new QuizDto(q);
             quizDtoList.add(quizDto);
